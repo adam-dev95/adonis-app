@@ -1,0 +1,12 @@
+@layout('layouts/main')
+@set('title', 'Todo Page')
+
+@section('content')
+    <h1>Liste Todo</h1>
+    <ul>
+        @each(todo in todos)
+            <p>{{ todo.name }}</p>
+            <a href="todos/{{ todo.id }}">Voir</a>
+        @end
+    </ul>
+@end
