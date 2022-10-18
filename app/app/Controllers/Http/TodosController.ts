@@ -8,10 +8,16 @@ export default class TodosController {
     return View.render("todos/index", { todos });
   }
 
-  public async create({}: HttpContextContract) {}
+  public async create({}: HttpContextContract) {
+    return View.render("todos/create");
+  }
 
-  public async store({ request }: HttpContextContract) {
-    
+  public async store({ request, response }: HttpContextContract) {
+    const { name } = request.body();
+    const todo = new Todo();
+    todo.name = name;
+    await todo.save();
+    response.redirect().toRoute("todos/show", [todo.id]);
   }
 
   public async show({ request }: HttpContextContract) {
@@ -24,5 +30,7 @@ export default class TodosController {
 
   public async update({}: HttpContextContract) {}
 
-  public async destroy({}: HttpContextContract) {}
+  public async destroy({ request }: HttpContextContract) {
+    console.log("ok");
+  }
 }
